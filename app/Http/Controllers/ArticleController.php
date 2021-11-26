@@ -8,6 +8,10 @@ use App\Http\Requests\UpdateArticleRequest;
 
 class ArticleController extends Controller
 {
+    public function api(){
+        $arr = Article::all();
+        return response($arr,200);
+    }
     /**
      * Display a listing of the resource.
      *
@@ -15,7 +19,8 @@ class ArticleController extends Controller
      */
     public function index()
     {
-        $articles = Article::all();
+        $articles = Article::with('category')->get();
+//        return $articles;
         return view('article.index',compact('articles'));
     }
 
@@ -37,6 +42,11 @@ class ArticleController extends Controller
      */
     public function store(StoreArticleRequest $request)
     {
+        $request->validate([
+            "title"=>"required",
+            "category"=>"required",
+            "description"=>"required"
+        ]);
         $article = new Article();
         $article->title = $request->title;
         $article->category_id = $request->category;
@@ -76,6 +86,11 @@ class ArticleController extends Controller
      */
     public function update(UpdateArticleRequest $request, Article $article)
     {
+        $request->validate([
+            "title"=>"required",
+            "category"=>"required",
+            "description"=>"required"
+        ]);
         $article->title = $request->title;
         $article->category_id = $request->category;
         $article->description = $request->description;

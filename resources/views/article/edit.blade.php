@@ -1,23 +1,26 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
-    <link rel="stylesheet" href="{{asset('css/app.css')}}">
-</head>
-<body>
+@extends('master')
+
+@section('content')
 <div class="container">
     <div class="row">
         <div class="col-12">
+
+            @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                            <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            @endif
+
             <form action="{{route('article.update',$article->id)}}" method="post">
                 @csrf
                 @method('put')
                 <div class="col-lg-4">
                     <label for="" class="form-label">Article Title</label>
-                    <input type="text" name="title" class="form-control" value="{{$article->title}}">
+                    <input type="text" name="title" class="form-control" value="{{old('title',$article->title)}}">
                 </div>
                 <div class="col-lg-4">
                     <label for="" class="form-label">Category Id</label>
@@ -37,5 +40,4 @@
         </div>
     </div>
 </div>
-</body>
-</html>
+@endsection
