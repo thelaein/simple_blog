@@ -22,4 +22,8 @@ Route::get('/', function () {
 Route::resource('category',CategoryController::class);
 Route::resource('article',ArticleController::class);
 Route::resource('photo',PhotoController::class);
+
+Route::resource('stock',\App\Http\Controllers\StockController::class);
+
 Route::resource('test',\App\Http\Controllers\TestController::class);
+
