@@ -39,7 +39,7 @@ class TestController extends Controller
         $test = new Test();
         $test->title = $request->title;
         $test->save();
-        return view()->route('test.create');
+        return $request;
     }
 
     /**
